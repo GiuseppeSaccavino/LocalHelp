@@ -7,6 +7,14 @@ from init_db import *
 app = Flask(__name__)
 app.secret_key = "chiave_super_segreta"  
 
+# --- INIZIALIZZAZIONE DB ---
+DB_FILE = "database.db"
+if not os.path.exists(DB_FILE):
+    print("Database non trovato, inizializzazione in corso...\nAttenzione l'operazione potrebbe richiedre qualche minuto.")
+    create_table(DB_FILE)
+    insert_RPC(DB_FILE)
+    print("Database caricato con successo.")
+
 # --- CONNESSIONE DB ---
 def get_db():
     conn = sqlite3.connect("database.db", timeout=30) #la connessione aspetta 30 secondi se il DB è bloccato invece di dare subito errore
@@ -351,13 +359,5 @@ def completa(id_post):
 
     return redirect("/richieste")
 
-
 if __name__ == "__main__":
-    DB_FILE = "database.db"
-
-    if not os.path.exists(DB_FILE):
-        create_table(DB_FILE)
-        insert_RPC(DB_FILE)
-    
-    app.run(port=8000, debug=True, host='0.0.0.0')
-
+    app.run()
