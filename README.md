@@ -124,10 +124,10 @@ flask --app LocalHelp run --host 0.0.0.0 --port 8000
 ________________________________________
 #### Important Notes
 > [!NOTE]
-> The first time you run it, it may take a few seconds to start due to database initialization.
-> Form validation occurs both on the client side (`HTML5`) and on the server side.
-> The interface is responsive thanks to `Bootstrap 5.3.2`.
-> The `SQLite database` uses **WAL** to reduce crashes in the event of concurrent access.
+>- The first time you run it, it may take a few seconds to start due to database initialization.
+>- Form validation occurs both on the client side (`HTML5`) and on the server side.
+>- The interface is responsive thanks to `Bootstrap 5.3.2`.
+>- The `SQLite database` uses **WAL** to reduce crashes in the event of concurrent access.
 ________________________________________
 #### Python Version
 >[!TIP]
