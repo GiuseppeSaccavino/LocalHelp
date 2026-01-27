@@ -8022,22 +8022,9 @@ INSERT OR IGNORE INTO comuni (nome, provincia_id) VALUES ('Villasimius', (SELECT
 INSERT OR IGNORE INTO comuni (nome, provincia_id) VALUES ('Villasor', (SELECT id FROM province WHERE nome='Sud Sardegna' AND regione_id=(SELECT id FROM regioni WHERE nome='Sardegna')));
 INSERT OR IGNORE INTO comuni (nome, provincia_id) VALUES ('Villaspeciosa', (SELECT id FROM province WHERE nome='Sud Sardegna' AND regione_id=(SELECT id FROM regioni WHERE nome='Sardegna')));
 
-
-INSERT OR IGNORE INTO utente (email, password, tel) VALUES ('admin@admin.it', 'scrypt:32768:8:1$Om0sKIYXKzdrf3me$52f33c120c673e2fc1ba8e25eb80357bf998eb890b8278f631c64ec04780af1fab2db9b64d3e8202edca731adb7b36eed7356862fa49f23f73d4206f2bd28dc1', '333 33 33 333');
-INSERT OR IGNORE INTO locazione (id_locazione, regione, provincia, comune, via, cap, id_utente) VALUES (1, 'Campania', 'Caserta', 'Castel Campagnano', 'via castello 1', '23456', 1);
-
 INSERT INTO genere (nome) VALUES ('spesa');
 INSERT INTO genere (nome) VALUES ('trasporto');
 INSERT INTO genere (nome) VALUES ('domestico');
 INSERT INTO genere (nome) VALUES ('compagnia');
 INSERT INTO genere (nome) VALUES ('animali');
 INSERT INTO genere (nome) VALUES ('eventi');
-
-INSERT INTO post_genere (post_id, genere_id) VALUES (1, 1); 
-INSERT INTO post_genere (post_id, genere_id) VALUES (1, 2); 
-INSERT INTO post_genere (post_id, genere_id) VALUES (2, 3);  
-INSERT INTO post_genere (post_id, genere_id) VALUES (3, 4); 
-INSERT INTO post_genere (post_id, genere_id) VALUES (3, 5); 
-INSERT INTO post_genere (post_id, genere_id) VALUES (4, 1); 
-INSERT INTO post_genere (post_id, genere_id) VALUES (5, 6);  
-INSERT INTO post_genere (post_id, genere_id) VALUES (5, 4); 
