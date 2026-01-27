@@ -17,7 +17,8 @@
 <div class="container">
   <form action="/register" method="post" id="registerForm">
     <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="password" placeholder="Password" minlength="8" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$" title="Minimo 8 caratteri, almeno una lettera maiuscola, un numero e un carattere speciale" required>
+
 
     <select name="regione" id="regione" required>
       <option value="">-- Seleziona regione --</option>
@@ -36,7 +37,8 @@
 
     <input type="text" name="via" placeholder="Via" required>
     <input type="text" name="cap" placeholder="CAP" title="Il CAP deve essere composto da 5 numeri" pattern="[0-9]{5}" required>
-    <input type="text" name="tel" placeholder="Telefono" title="Il numero di telefono deve essere composto da 10 numeri" pattern="[0-9]{10}" required>
+    <input id ="tel" type="tel"  name="tel" placeholder="123 45 67 890" title="Il numero di telefono deve essere composto da 10 numeri" inputmode="numeric" required>
+
     <button type="submit">Registrati</button>
   </form>
 </div>
@@ -80,6 +82,23 @@ selectProvincia.addEventListener('change', async () => {
     selectComune.appendChild(opt);
   });
   selectComune.disabled = false;
+});
+
+// VALIDAZIONE TELEFONO
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    const input = document.getElementById('tel');
+    let valore = input.value;
+
+    // cancella tutto ciò che non è numero
+    valore = valore.replace(/\D/g, '');
+    input.value = valore;
+
+    // controlla che ci siano esattamente 10 numeri
+    if (valore.length !== 10) {
+        e.preventDefault();
+        alert('Il numero deve contenere esattamente 10 cifre.');
+        input.focus();
+    }
 });
 </script>
 </body>
