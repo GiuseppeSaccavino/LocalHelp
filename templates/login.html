@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% set title = "Login" %}
+{% block content %}
+
+<form method="POST">
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Entra</button>
+</form>
+
+<p><a href="/register">Non hai un account? Registrati</a></p>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+<div class="card mx-auto my-3" style="max-width: 500px;">
+    <!-- HEADER -->
+    <div class="card-header d-flex flex-column align-items-start">
+        <strong>Richiedente: {{ p.email }}</strong>
+        {% if mostra_aiutante %}
+            <strong>Volontario: {{ p.assegnato_email }}</strong>
+        {% endif %}
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+        <!-- Categorie -->
+        <div class="mb-2">
+            <strong>Categorie:</strong>
+            {% for g in generi_map[p.post_id] %}
+                <span class="badge bg-secondary me-1">{{ g }}</span>
+            {% endfor %}
+        </div>
+
+        <!-- Descrizione -->
+        <div class="mb-2">
+            <strong>Descrizione:</strong> {{ p.descrizione }}
+        </div>
+
+        <!-- Indirizzo e telefono -->
+        <div class="mb-1"><strong>Indirizzo:</strong> {{ p.via }}, {{ p.comune }} ({{ p.provincia }})</div>
+        <div class="mb-2"><strong>Telefono:</strong> {{ p.tel }}</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap">
+        <!-- Map button -->
+        <a href="https://www.google.com/maps/search/?api=1&query={{ p.via }},{{ p.comune }},{{ p.provincia }}"
+           target="_blank" class="btn btn-outline-dark btn-sm mb-1">
+            Maps
+        </a>
+
+        <!-- Azioni -->
+        {% if action_url %}
+            <form action="{{ action_url }}/{{ p.post_id }}" method="post" class="mb-1">
+                <button type="submit" class="btn btn-{{action_color}} btn-sm">
+                    {{ action_label }}
+                </button>
+            </form>
+        {% endif %}
+
+        {% if footer_text %}
+            <span class="text-success fw-bold mb-1">{{ footer_text }}</span>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- BOTTONI IN LINEA -->
+<div style="display:flex; gap:10px; margin-bottom:20px;">
+    <button id="btn_incorso" onclick="mostra('incorso')">In corso</button>
+    <button id="btn_completate" onclick="mostra('completate')">Completate</button>
+</div>
+
+<!-- ================= IN CORSO ================= -->
+<div id="incorso">
+
+<div class="cards-container">
+{% for p in attivita_in_corso %}
+    {% set p=p %}
+    {% set generi_map=generi_map_in %}
+    {% set mostra_aiutante=false %}
+    {% include "_card_template.html" %}
+{% endfor %}
+</div>
+
+{% if not attivita_in_corso %}
+    <p>Nessuna attività in corso.</p>
+{% endif %}
+
+</div>
+
+<!-- ================= COMPLETATE ================= -->
+<div id="completate" style="display:none;">
+
+<div class="cards-container">
+{% for p in attivita_completate %}
+    {% set p=p %}
+    {% set generi_map=generi_map_ok %}
+    {% set mostra_aiutante=false %}
+    {% set footer_text="✔ Completata" %}
+    {% include "_card_template.html" %}
+{% endfor %}
+</div>
+
+{% if not attivita_completate %}
+    <p>Nessuna attività completata.</p>
+{% endif %}
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+function mostra(tipo) {
+    const inc = document.getElementById("incorso");
+    const comp = document.getElementById("completate");
+
+    document.getElementById("btn_incorso").disabled = (tipo === "incorso");
+    document.getElementById("btn_completate").disabled = (tipo === "completate");
+
+    inc.style.display = (tipo === "incorso") ? "block" : "none";
+    comp.style.display = (tipo === "completate") ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => mostra("incorso"));
+</script>
+
+{% endblock %}

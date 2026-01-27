@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% set title = "Richiesta di Aiuto" %}
+{% block content %}
+
+<form method="POST" class="w-100" style="max-width: 600px;">
+  <!-- DESCRIZIONE -->
+  <div class="mb-4">
+    <label for="descrizione" class="form-label"><strong>Descrizione aggiuntiva</strong></label>
+    <textarea id="descrizione" name="descrizione" class="form-control" rows="4" 
+      placeholder="Inserisci eventuali dettagli o informazioni utili sull'aiuto di cui hai bisogno (es. orari, urgenza, luogo, esigenze particolari)"></textarea>
+  </div>
+
+  <!-- AIUTO PRATICO -->
+  <h4 class="mb-3">Aiuto pratico</h4>
+  <div class="form-check mb-2">
+    <input type="checkbox" class="form-check-input" id="spesa" name="genere[]" value="spesa">
+    <label for="spesa" class="form-check-label"><strong>Spesa e commissioni</strong></label>
+    <div class="form-text">es. fare la spesa, ritirare farmaci, pagare bollette</div>
+  </div>
+
+  <div class="form-check mb-2">
+    <input type="checkbox" class="form-check-input" id="trasporto" name="genere[]" value="trasporto">
+    <label for="trasporto" class="form-check-label"><strong>Trasporto</strong></label>
+    <div class="form-text">es. accompagnare a visite mediche, spostamenti, attività quotidiane</div>
+  </div>
+
+  <div class="form-check mb-4">
+    <input type="checkbox" class="form-check-input" id="domestico" name="genere[]" value="domestico">
+    <label for="domestico" class="form-check-label"><strong>Aiuto domestico</strong></label>
+    <div class="form-text">es. pulizie, piccoli lavori, giardinaggio, manutenzione</div>
+  </div>
+
+  <!-- SUPPORTO SOCIALE E ANIMALI -->
+  <h4 class="mb-3">Supporto sociale e animali</h4>
+  <div class="form-check mb-2">
+    <input type="checkbox" class="form-check-input" id="compagnia" name="genere[]" value="compagnia">
+    <label for="compagnia" class="form-check-label"><strong>Compagnia e supporto sociale</strong></label>
+    <div class="form-text">es. visite, ascolto, attività ricreative per anziani o persone sole</div>
+  </div>
+
+  <div class="form-check mb-4">
+    <input type="checkbox" class="form-check-input" id="animali" name="genere[]" value="animali">
+    <label for="animali" class="form-check-label"><strong>Cura animali</strong></label>
+    <div class="form-text">es. passeggiate, alimentazione, assistenza temporanea</div>
+  </div>
+
+  <!-- COMUNITÀ -->
+  <h4 class="mb-3">Comunità</h4>
+  <div class="form-check mb-4">
+    <input type="checkbox" class="form-check-input" id="eventi" name="genere[]" value="eventi">
+    <label for="eventi" class="form-check-label"><strong>Eventi e attività di quartiere</strong></label>
+    <div class="form-text">es. partecipazione a eventi locali, laboratori creativi, iniziative di comunità</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary w-100">Invia richiesta</button>
+</form>
+
+{% if error %}
+  <div class="alert alert-danger mt-3">{{ error }}</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% set title = "Registrazione" %}
+{% block content %}
+
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>Registrazione</title>
+  <style>
+    body { font-family: Arial; margin: 40px; }
+    .container { max-width: 500px; margin: auto; }
+    input, select, button { width: 100%; padding: 10px; margin: 5px 0; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <form action="/register" method="post" id="registerForm">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <select name="regione" id="regione" required>
+      <option value="">-- Seleziona regione --</option>
+      {% for r in regioni %}
+        <option value="{{ r.id }}">{{ r.nome }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="provincia" id="provincia" required disabled>
+      <option value="">-- Seleziona provincia --</option>
+    </select>
+
+    <select name="comune" id="comune" required disabled>
+      <option value="">-- Seleziona comune --</option>
+    </select>
+
+    <input type="text" name="via" placeholder="Via" required>
+    <input type="text" name="cap" placeholder="CAP" title="Il CAP deve essere composto da 5 numeri" pattern="[0-9]{5}" required>
+    <input type="text" name="tel" placeholder="Telefono" title="Il numero di telefono deve essere composto da 10 numeri" pattern="[0-9]{10}" required>
+    <button type="submit">Registrati</button>
+  </form>
+</div>
+
+<script>
+const selectRegione = document.getElementById('regione');
+const selectProvincia = document.getElementById('provincia');
+const selectComune = document.getElementById('comune');
+
+selectRegione.addEventListener('change', async () => {
+  const regioneId = selectRegione.value;
+  selectProvincia.innerHTML = '<option value="">-- Seleziona provincia --</option>';
+  selectComune.innerHTML = '<option value="">-- Seleziona comune --</option>';
+  selectProvincia.disabled = true;
+  selectComune.disabled = true;
+  if (!regioneId) return;
+
+  const res = await fetch(`/province/${regioneId}`);
+  const province = await res.json();
+  province.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.nome;
+    selectProvincia.appendChild(opt);
+  });
+  selectProvincia.disabled = false;
+});
+
+selectProvincia.addEventListener('change', async () => {
+  const provinciaId = selectProvincia.value;
+  selectComune.innerHTML = '<option value="">-- Seleziona comune --</option>';
+  selectComune.disabled = true;
+  if (!provinciaId) return;
+
+  const res = await fetch(`/comuni/${provinciaId}`);
+  const comuni = await res.json();
+  comuni.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.nome;
+    selectComune.appendChild(opt);
+  });
+  selectComune.disabled = false;
+});
+</script>
+</body>
+</html>
+
+{% endblock %}
