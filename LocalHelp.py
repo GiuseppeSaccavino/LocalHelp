@@ -166,6 +166,7 @@ def register():
 # --- LOGIN ---
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    session.clear()
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -272,8 +273,11 @@ def richieste():
 def bacheca():
     if "id_utente" not in session:
         return redirect("/login")
-
-    posts, generi_map = get_posts(None, 0, 0, session["id_utente"])
+    try:
+        posts, generi_map = get_posts(None, 0, 0, session["id_utente"])
+    except Exception as e:
+        print("Errore nella bacheca: ", e)
+        return redirect("/login")
 
     return render_template(
         "bacheca.html",
@@ -356,3 +360,4 @@ if __name__ == "__main__":
         insert_RPC(DB_FILE)
     
     app.run(port=8000, debug=True, host='0.0.0.0')
+
