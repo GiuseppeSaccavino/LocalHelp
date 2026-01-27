@@ -16,7 +16,7 @@
     {% for p in attivita_non_accettate %}
         {% set p=p %}
         {% set generi_map=generi_map_non %}
-        {% set mostra_aiutante=true %}
+        {% set mostra_aiutante=false %}
         {% set action_url="/cancella" %}
         {% set action_label="Elimina" %}
         {% set action_color="danger" %}
@@ -92,3 +92,4 @@ document.addEventListener("DOMContentLoaded", () => mostra("incorso"));
 </script>
 
 {% endblock %}
+
