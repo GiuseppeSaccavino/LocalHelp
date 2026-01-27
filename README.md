@@ -63,7 +63,7 @@ ________________________________________
 #### Clone the repository
 
 ```sh
-git clone https://github.com/your-username/LocalHelp.git
+git clone https://github.com/GiuseppeSaccavino/LocalHelp.git
 cd LocalHelp
 ```
 
@@ -135,3 +135,10 @@ ________________________________________
 >Tested on:
 >- `Windows 3.11`
 >- `Linux Mint 3.12`
+
+________________________________________
+### **_LICENSE_**
+This project is released under the MIT License.
+
+See the [LICENSE](LICENSE) file for details.
+
