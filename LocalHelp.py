@@ -7,20 +7,20 @@ from init_db import *
 app = Flask(__name__)
 app.secret_key = "chiave_super_segreta"  
 
-# --- INIZIALIZZAZIONE DB ---
+# --- INITIALIZATION DB ---
 DB_FILE = "database.db"
 if not os.path.exists(DB_FILE):
-    print("Database non trovato, inizializzazione in corso...\nAttenzione l'operazione potrebbe richiedre qualche minuto.")
+    print("Database not found, initialization in progress...\nAttention, the operation may take a few minutes.")
     create_table(DB_FILE)
     insert_RPC(DB_FILE)
-    print("Database caricato con successo.")
+    print("Database loaded successfully.")
 
-# --- CONNESSIONE DB ---
+# --- CONNECTION DB ---
 def get_db():
-    conn = sqlite3.connect("database.db", timeout=30) #la connessione aspetta 30 secondi se il DB è bloccato invece di dare subito errore
+    conn = sqlite3.connect("database.db", timeout=30) #the connection waits 30 seconds if the DB is blocked instead of immediately giving an error.
     conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")  # ATTIVA FK
-    conn.execute("PRAGMA journal_mode=WAL;") #Permette più scritture contemporaneamente, migliora la concorrenza 
+    conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA journal_mode=WAL;") #Allows multiple writes at the same time, improves concurrency 
     return conn
 
 def get_posts(id_assegnato=None, accettata=0, completato=0, self_id=None, uguale=0):
@@ -87,7 +87,7 @@ def get_posts(id_assegnato=None, accettata=0, completato=0, self_id=None, uguale
     
     return posts, generi_map
 
-# --- API dinamiche ---
+# --- Dynamic APIs ---
 @app.route("/province/<int:regione_id>")
 def get_province(regione_id):
     conn = get_db()
@@ -115,7 +115,7 @@ def index():
     return redirect("/bacheca")
 
 
-# --- REGISTRAZIONE ---
+# --- REGISTRATION ---
 @app.route("/register", methods=["GET", "POST"])
 def register():
     conn = get_db()
@@ -141,13 +141,12 @@ def register():
         hashed = generate_password_hash(password)
 
         try:
-            # Inserisce utente
             cur.execute("INSERT INTO utente (email, password, tel) VALUES (?, ?, ?)", (email, hashed, tel))
             conn.commit()
             cur.execute("SELECT id_utente FROM utente WHERE email = ?", (email,))
             id_utente = cur.fetchone()["id_utente"]
 
-            # Recupera nomi da ID per locazione
+            # Retrieve names from IDs by location
             cur.execute("SELECT nome FROM regioni WHERE id = ?", (regione_id,))
             regione = cur.fetchone()["nome"]
             cur.execute("SELECT nome FROM province WHERE id = ?", (provincia_id,))
@@ -155,7 +154,6 @@ def register():
             cur.execute("SELECT nome FROM comuni WHERE id = ?", (comune_id,))
             comune = cur.fetchone()["nome"]
 
-            # Inserisce locazione
             cur.execute("""
                 INSERT INTO locazione (id_utente, regione, provincia, comune, via, CAP)
                 VALUES (?, ?, ?, ?, ?, ?)
@@ -163,7 +161,7 @@ def register():
             conn.commit()
         except sqlite3.IntegrityError:
             conn.close()
-            return "Errore: email già registrata."
+            return "Error: email already registered."
         finally:
             conn.close()
             
@@ -200,7 +198,7 @@ def logout():
     session.clear()
     return redirect("/login")
 
-# --- AGGIUNGI RICHIESTE ---
+# --- ADD REQUESTS ---
 @app.route("/aggiungi",  methods=["GET", "POST"])
 def aggiungi():
     if "id_utente" not in session:
@@ -211,7 +209,7 @@ def aggiungi():
         generi = request.form.getlist("genere[]")
         
         if not generi:
-            error = "Bisogna selezionare almeno un tipo di aiuto."
+            error = "You must select at least one type of help."
             return render_template("aggiungi.html", error=error)
 
         conn = get_db()
@@ -233,7 +231,7 @@ def aggiungi():
             cur.execute("INSERT INTO post_genere (post_id, genere_id) VALUES (?, ?)",(id_post, id_genere))
         
         conn.commit()
-        return "Richiesta aggiunta con successo <a href='richieste'>Torna Alle mie Richieste</a>"
+        return "Request added successfully <a href='richieste'>Back to my requests</a>"
 
     return render_template("aggiungi.html")
 
@@ -248,14 +246,14 @@ def attivita():
 
     return render_template(
         "attivita.html",
-        title="Le mie attività",
+        title="My activities",
         attivita_in_corso=attivita_in_corso,
         generi_map_in = generi_map_in,
         attivita_completate=attivita_completate,
         generi_map_ok = generi_map_ok
     )
 
-# --- RICHIESTE ---
+# --- REQUESTS ---
 @app.route("/richieste")
 def richieste():
     if "id_utente" not in session:
@@ -267,7 +265,7 @@ def richieste():
 
     return render_template(
         "richieste.html",
-        title="Le mie richieste",
+        title="My requests",
         attivita_in_corso=attivita_in_corso,
         generi_map_in = generi_map_in,
         attivita_completate=attivita_completate,
@@ -276,7 +274,7 @@ def richieste():
         generi_map_non=generi_map_non
     )
 
-# --- BACHECA / ACCETTA POST ---
+# --- NOTICEBOARD / ACCEPT POST ---
 @app.route("/bacheca")
 def bacheca():
     if "id_utente" not in session:
@@ -284,17 +282,17 @@ def bacheca():
     try:
         posts, generi_map = get_posts(None, 0, 0, session["id_utente"])
     except Exception as e:
-        print("Errore nella bacheca: ", e)
+        print("Error on the noticeboard: ", e)
         return redirect("/login")
 
     return render_template(
         "bacheca.html",
-        title="Richieste disponibili",
+        title="Requests available",
         posts=posts,
         generi_map=generi_map
     )
 
-# --- ACCETTA ---
+# --- ACCEPT ---
 @app.route("/accetta/<int:id_post>", methods=["POST"])
 def accetta_post(id_post):
     if "id_utente" not in session:
@@ -316,7 +314,7 @@ def accetta_post(id_post):
 
     return redirect("/bacheca")
 
-# --- CANCELLA RICHISTA---
+# --- CANCEL REQUEST ---
 @app.route("/cancella/<int:id_post>", methods=["POST"])
 def cancella(id_post):
     if "id_utente" not in session:
@@ -336,7 +334,7 @@ def cancella(id_post):
     
     return redirect("/richieste")
 
-# --- COMPLETA RICHIESTA ---
+# --- COMPLETE REQUEST ---
 @app.route("/completa/<int:id_post>", methods=["POST"])
 def completa(id_post):
     if "id_utente" not in session:
@@ -345,7 +343,7 @@ def completa(id_post):
     conn = get_db()
     cur = conn.cursor()
 
-    # Aggiorna solo se l'utente loggato ha accettato il post
+    # Update only if the logged in user has accepted the post
     cur.execute("""
         UPDATE post
         SET completato = 1
@@ -361,3 +359,4 @@ def completa(id_post):
 
 if __name__ == "__main__":
     app.run()
+
