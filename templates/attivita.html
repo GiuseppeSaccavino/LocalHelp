@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- BOTTONI IN LINEA -->
 <div style="display:flex; gap:10px; margin-bottom:20px;">
-    <button id="btn_incorso" onclick="mostra('incorso')">In corso</button>
-    <button id="btn_completate" onclick="mostra('completate')">Completate</button>
+    <button id="btn_incorso" onclick="mostra('incorso')">In progress</button>
+    <button id="btn_completate" onclick="mostra('completate')">Complete</button>
 </div>
 
-<!-- ================= IN CORSO ================= -->
+<!-- ================= IN PROGRESS ================= -->
 <div id="incorso">
 
 <div class="cards-container">
@@ -20,12 +19,12 @@
 </div>
 
 {% if not attivita_in_corso %}
-    <p>Nessuna attività in corso.</p>
+    <p>No activity in progress.</p>
 {% endif %}
 
 </div>
 
-<!-- ================= COMPLETATE ================= -->
+<!-- ================= COMPLETE ================= -->
 <div id="completate" style="display:none;">
 
 <div class="cards-container">
@@ -39,7 +38,7 @@
 </div>
 
 {% if not attivita_completate %}
-    <p>Nessuna attività completata.</p>
+    <p>No tasks completed.</p>
 {% endif %}
 
 </div>
@@ -61,3 +60,4 @@ document.addEventListener("DOMContentLoaded", () => mostra("incorso"));
 </script>
 
 {% endblock %}
+
