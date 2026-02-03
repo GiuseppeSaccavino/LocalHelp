@@ -96,7 +96,7 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     // check that there are exactly 10 numbers
     if (valore.length !== 10) {
         e.preventDefault();
-        alert('Il numero deve contenere esattamente 10 cifre.');
+        alert('The number must contain exactly 10 digits.');
         input.focus();
     }
 });
@@ -105,4 +105,5 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
 </html>
 
 {% endblock %}
+
 
