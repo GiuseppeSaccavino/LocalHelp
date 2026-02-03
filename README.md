@@ -136,6 +136,12 @@ ________________________________________
 >- `Windows 3.11`
 >- `Linux Mint 3.12`
 ________________________________________
+### **_Data Sources_**
+This project utilizes public data to facilitate the selection of italian municipalities and to improve the accuracy af addresses
+- **Dataset**: [Elenco-comuni-italiani.csv](https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv).
+- **Source**: [ISTAT](https://www.istat.it/) (Istituto Nazionale di Statistica).
+- **Term and Conditions**: The data is released under the [Creative Commons  versione 4.0 Deed](https://creativecommons.org/licenses/by/4.0/deed.it) license.
+________________________________________
 ### **_Contributors & Credits_**
 This project was developed with the help and support of the following contributors:
 - **[Giuseppe Saccavino](https://github.com/GiuseppeSaccavino)** - Backend logic and Flask support
