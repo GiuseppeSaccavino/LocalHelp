@@ -1,7 +1,7 @@
 {
   "name": "LocalHelp",
   "short_name": "LocalHelp",
-  "description": "Localhelp for non-self-sufficient people and volunteers",
+  "description": "Aiuto locale per persone non autosufficienti e volontari",
   "start_url": "/bacheca",
   "display": "standalone",
   "background_color": "#f8f9fa",
@@ -19,4 +19,3 @@
     }
   ]
 }
-

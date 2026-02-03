@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- BOTTONI IN LINEA -->
 <div style="display:flex; gap:10px; margin-bottom:20px;">
-    <button id="btn_incorso" onclick="mostra('incorso')">In Progress</button>
-    <button id="btn_completate" onclick="mostra('completate')">Completed</button>
-    <button id="btn_nonaccettate" onclick="mostra('nonaccettate')">Not Accepted</button>
+    <button id="btn_incorso" onclick="mostra('incorso')">In corso</button>
+    <button id="btn_completate" onclick="mostra('completate')">Completate</button>
+    <button id="btn_nonaccettate" onclick="mostra('nonaccettate')">Non Accettate</button>
 </div>
 
-<!-- ================= NOT ACCEPTED ================= -->
+<!-- ================= Non Accettate ================= -->
 <div id="nonaccettate" style="display:none;">
 
     <div class="cards-container">
@@ -17,19 +18,19 @@
         {% set generi_map=generi_map_non %}
         {% set mostra_aiutante=false %}
         {% set action_url="/cancella" %}
-        {% set action_label="Delete" %}
+        {% set action_label="Elimina" %}
         {% set action_color="danger" %}
         {% include "_card_template.html" %}
     {% endfor %}
 
     {% if not attivita_non_accettate %}
-        <p>No pending requests.</p>
+        <p>Nessuna richiesta in attesa.</p>
     {% endif %}
 
     </div>
 </div>
 
-<!-- ================= IN PROGRESS ================= -->
+<!-- ================= IN CORSO ================= -->
 <div id="incorso">
 
     <div class="cards-container">
@@ -39,20 +40,20 @@
         {% set generi_map=generi_map_in %}
         {% set mostra_aiutante=true %}
         {% set action_url="/completa" %}
-        {% set action_label="Complate" %}
+        {% set action_label="Completa" %}
         {% set action_color="success" %}
         {% include "_card_template.html" %}
     {% endfor %}
 
     {% if not attivita_in_corso %}
-        <p>No requests in progress.</p>
+        <p>Nessuna richiesta in corso.</p>
     {% endif %}
 
     </div>
 
 </div>
 
-<!-- ================= COMPLETED ================= -->
+<!-- ================= COMPLETATE ================= -->
 <div id="completate" style="display:none;">
 
 <div class="cards-container">
@@ -60,13 +61,13 @@
     {% set p=p %}
     {% set generi_map=generi_map_ok %}
     {% set mostra_aiutante=true %}
-    {% set footer_text="✔ Completed" %}
+    {% set footer_text="✔ Completata" %}
     {% include "_card_template.html" %}
 {% endfor %}
 </div>
 
 {% if not attivita_completate %}
-    <p>No requests completed.</p>
+    <p>Nessuna richiesta completata.</p>
 {% endif %}
 
 </div>
@@ -91,5 +92,4 @@ document.addEventListener("DOMContentLoaded", () => mostra("incorso"));
 </script>
 
 {% endblock %}
-
 

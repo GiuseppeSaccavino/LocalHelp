@@ -8,16 +8,15 @@
         {% set generi_map=generi_map %}
         {% set mostra_aiutante=false %}
         {% set action_url="/accetta" %}
-        {% set action_label="Accept" %}
+        {% set action_label="Accetta" %}
         {% set action_color="primary" %}
         {% include "_card_template.html" %}
     {% endfor %}
 
     {% if not posts %}
-        <p>No requests available.</p>
+        <p>Nessuna richiesta disponibile.</p>
     {% endif %}
 
     </div>
-
 
 {% endblock %}

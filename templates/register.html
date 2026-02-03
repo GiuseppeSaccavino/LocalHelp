@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% set title = "Sign in" %}
+{% set title = "Registrazione" %}
 {% block content %}
 
 <!doctype html>
 <html lang="it">
 <head>
   <meta charset="utf-8">
-  <title>Sign in</title>
+  <title>Registrazione</title>
   <style>
     body { font-family: Arial; margin: 40px; }
     .container { max-width: 500px; margin: auto; }
@@ -17,29 +17,29 @@
 <div class="container">
   <form action="/register" method="post" id="registerForm">
     <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" minlength="8" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$" title="Minimum 8 characters, at least one capital letter, one number and one special character" required>
+    <input type="password" name="password" placeholder="Password" minlength="8" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$" title="Minimo 8 caratteri, almeno una lettera maiuscola, un numero e un carattere speciale" required>
 
 
     <select name="regione" id="regione" required>
-      <option value="">-- Select region --</option>
+      <option value="">-- Seleziona regione --</option>
       {% for r in regioni %}
         <option value="{{ r.id }}">{{ r.nome }}</option>
       {% endfor %}
     </select>
 
     <select name="provincia" id="provincia" required disabled>
-      <option value="">-- Select province --</option>
+      <option value="">-- Seleziona provincia --</option>
     </select>
 
     <select name="comune" id="comune" required disabled>
-      <option value="">-- Select municipality --</option>
+      <option value="">-- Seleziona comune --</option>
     </select>
 
-    <input type="text" name="via" placeholder="Street" required>
-    <input type="text" name="cap" placeholder="CAP" title="The postcode must consist of 5 numbers" pattern="[0-9]{5}" required>
-    <input id ="tel" type="tel"  name="tel" placeholder="123 45 67 890" title="The telephone number must consist of 10 numbers" inputmode="numeric" required>
+    <input type="text" name="via" placeholder="Via" required>
+    <input type="text" name="cap" placeholder="CAP" title="Il CAP deve essere composto da 5 numeri" pattern="[0-9]{5}" required>
+    <input id ="tel" type="tel"  name="tel" placeholder="123 45 67 890" title="Il numero di telefono deve essere composto da 10 numeri" inputmode="numeric" required>
 
-    <button type="submit">Sign in</button>
+    <button type="submit">Registrati</button>
   </form>
 </div>
 
@@ -50,8 +50,8 @@ const selectComune = document.getElementById('comune');
 
 selectRegione.addEventListener('change', async () => {
   const regioneId = selectRegione.value;
-  selectProvincia.innerHTML = '<option value="">-- Select province --</option>';
-  selectComune.innerHTML = '<option value="">-- Select municipality --</option>';
+  selectProvincia.innerHTML = '<option value="">-- Seleziona provincia --</option>';
+  selectComune.innerHTML = '<option value="">-- Seleziona comune --</option>';
   selectProvincia.disabled = true;
   selectComune.disabled = true;
   if (!regioneId) return;
@@ -69,7 +69,7 @@ selectRegione.addEventListener('change', async () => {
 
 selectProvincia.addEventListener('change', async () => {
   const provinciaId = selectProvincia.value;
-  selectComune.innerHTML = '<option value="">-- Select municipality --</option>';
+  selectComune.innerHTML = '<option value="">-- Seleziona comune --</option>';
   selectComune.disabled = true;
   if (!provinciaId) return;
 
@@ -84,19 +84,19 @@ selectProvincia.addEventListener('change', async () => {
   selectComune.disabled = false;
 });
 
-// PHONE VALIDATION
+// VALIDAZIONE TELEFONO
 document.getElementById('registerForm').addEventListener('submit', function(e) {
     const input = document.getElementById('tel');
     let valore = input.value;
 
-    // delete everything that is not a number
+    // cancella tutto ciò che non è numero
     valore = valore.replace(/\D/g, '');
     input.value = valore;
 
-    // check that there are exactly 10 numbers
+    // controlla che ci siano esattamente 10 numeri
     if (valore.length !== 10) {
         e.preventDefault();
-        alert('The number must contain exactly 10 digits.');
+        alert('Il numero deve contenere esattamente 10 cifre.');
         input.focus();
     }
 });
@@ -105,5 +105,3 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
 </html>
 
 {% endblock %}
-
-

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- BOTTONI IN LINEA -->
 <div style="display:flex; gap:10px; margin-bottom:20px;">
-    <button id="btn_incorso" onclick="mostra('incorso')">In progress</button>
-    <button id="btn_completate" onclick="mostra('completate')">Complete</button>
+    <button id="btn_incorso" onclick="mostra('incorso')">In corso</button>
+    <button id="btn_completate" onclick="mostra('completate')">Completate</button>
 </div>
 
-<!-- ================= IN PROGRESS ================= -->
+<!-- ================= IN CORSO ================= -->
 <div id="incorso">
 
 <div class="cards-container">
@@ -19,12 +20,12 @@
 </div>
 
 {% if not attivita_in_corso %}
-    <p>No activity in progress.</p>
+    <p>Nessuna attività in corso.</p>
 {% endif %}
 
 </div>
 
-<!-- ================= COMPLETE ================= -->
+<!-- ================= COMPLETATE ================= -->
 <div id="completate" style="display:none;">
 
 <div class="cards-container">
@@ -32,13 +33,13 @@
     {% set p=p %}
     {% set generi_map=generi_map_ok %}
     {% set mostra_aiutante=false %}
-    {% set footer_text="✔ Completed" %}
+    {% set footer_text="✔ Completata" %}
     {% include "_card_template.html" %}
 {% endfor %}
 </div>
 
 {% if not attivita_completate %}
-    <p>No tasks completed.</p>
+    <p>Nessuna attività completata.</p>
 {% endif %}
 
 </div>
@@ -60,5 +61,3 @@ document.addEventListener("DOMContentLoaded", () => mostra("incorso"));
 </script>
 
 {% endblock %}
-
-

@@ -1,27 +1,30 @@
 <div class="card mx-auto my-3" style="max-width: 500px;">
     <!-- HEADER -->
     <div class="card-header d-flex flex-column align-items-start">
-        <strong>Requester: {{ p.email }}</strong>
+        <strong>Richiedente: {{ p.email }}</strong>
         {% if mostra_aiutante %}
-            <strong>Voluntary: {{ p.assegnato_email }}</strong>
+            <strong>Volontario: {{ p.assegnato_email }}</strong>
         {% endif %}
     </div>
 
     <!-- BODY -->
     <div class="card-body">
+        <!-- Categorie -->
         <div class="mb-2">
-            <strong>Categories:</strong>
+            <strong>Categorie:</strong>
             {% for g in generi_map[p.post_id] %}
                 <span class="badge bg-secondary me-1">{{ g }}</span>
             {% endfor %}
         </div>
 
+        <!-- Descrizione -->
         <div class="mb-2">
-            <strong>Description:</strong> {{ p.descrizione }}
+            <strong>Descrizione:</strong> {{ p.descrizione }}
         </div>
 
-        <div class="mb-1"><strong>Address:</strong> {{ p.via }}, {{ p.comune }} ({{ p.provincia }})</div>
-        <div class="mb-2"><strong>Telephone:</strong> {{ p.tel }}</div>
+        <!-- Indirizzo e telefono -->
+        <div class="mb-1"><strong>Indirizzo:</strong> {{ p.via }}, {{ p.comune }} ({{ p.provincia }})</div>
+        <div class="mb-2"><strong>Telefono:</strong> {{ p.tel }}</div>
     </div>
 
     <!-- FOOTER -->
@@ -32,7 +35,7 @@
             Maps
         </a>
 
-        <!-- Action -->
+        <!-- Azioni -->
         {% if action_url %}
             <form action="{{ action_url }}/{{ p.post_id }}" method="post" class="mb-1">
                 <button type="submit" class="btn btn-{{action_color}} btn-sm">
