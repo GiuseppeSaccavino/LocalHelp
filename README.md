@@ -23,8 +23,8 @@ ________________________________________
 - Direct Link to Google Maps for the Address
 ________________________________________
 ### **_Technologies Used_**
-- **Backend**: Python, Flask, JavaScript (API Fetch)
-- **Frontend**: HTML, Jinja2, Bootstrap 5, JavaScript, CSS
+- **Backend**: Python, Flask, JavaScript (API Fetch), Jinja2
+- **Frontend**: HTML, Bootstrap 5, CSS
 - **Database**: SQLite (WAL enabled)
 - **Other**: PWA (manifest + Service Worker)
 ________________________________________
@@ -135,7 +135,12 @@ ________________________________________
 >Tested on:
 >- `Windows 3.11`
 >- `Linux Mint 3.12`
-
+________________________________________
+### **_Contributors & Credits_**
+This project was developed with the help and support of the following contributors:
+- **[Giuseppe Saccavino](https://github.com/GiuseppeSaccavino)** - Backend logic and Flask support
+- **[Dimitri Ilchuk](https://github.com/Dimitri-ilchuk)** - Frontend layout and Bootstrap integration
+- **[Oles Ilchuk](https://github.com/oles-ilchuk)** - Database design and SQL
 ________________________________________
 ### **_LICENSE_**
 This project is released under the MIT License.
