@@ -23,8 +23,8 @@ ________________________________________
 - Direct Link to Google Maps for the Address
 ________________________________________
 ### **_Technologies Used_**
-- **Backend**: Python, Flask, JavaScript (API Fetch)
-- **Frontend**: HTML, Jinja2, Bootstrap 5, JavaScript, CSS
+- **Backend**: Python, Flask, JavaScript (API Fetch), Jinja2
+- **Frontend**: HTML, Bootstrap 5, CSS
 - **Database**: SQLite (WAL enabled)
 - **Other**: PWA (manifest + Service Worker)
 ________________________________________
